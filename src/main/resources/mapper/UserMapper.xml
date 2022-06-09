@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjx.springboottest.dao.UserDao">
+
+    <!--    List<User> getAllUser();-->
+<!--    public User selectById(Integer userId);-->
+    <select id="selectById" resultType="com.xjx.springboottest.po.User">
+        select * from user where user_id = #{userId}
+    </select>
+
+<!--    public List<UserVo> selectUserAll(); -->
+    <select id="selectUserAll" resultType="com.xjx.springboottest.po.UserVo">
+        SELECT * FROM USER LEFT JOIN department ON user.department_id = department.department_id LEFT JOIN user_group ON user.user_group_id = user_group.user_group_id
+    </select>
+
+<!--    public List<UserVo> selectDepartment();  -->
+    <select id="selectDepartment" resultType="com.xjx.springboottest.po.UserVo">
+        select * from department
+    </select>
+
+<!--    public List<UserVo> selectUserGroup(); -->
+    <select id="selectUserGroup" resultType="com.xjx.springboottest.po.UserVo">
+        SELECT * FROM  user_group
+    </select>
+
+<!--    Integer insertUser(User user); -->
+    <insert id="insertUser" parameterType="com.xjx.springboottest.po.User">
+        insert into user
+        <trim prefix="(" suffix= ")" suffixOverrides=",">
+            <if test="userName != null">user_name,</if>
+            <if test="userSex != null">user_sex,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="userAddress != null">user_address,</if>
+            <if test="userPhone != null">user_phone,</if>
+            <if test="userImage != null">user_image,</if>
+            <if test="userPassword != null">user_password,</if>
+            <if test="userGroupId != null">user_group_id,</if>
+            <if test="departmentId != null">department_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">#{userName},</if>
+            <if test="userSex != null">#{userSex},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="userAddress != null">#{userAddress},</if>
+            <if test="userPhone != null">#{userPhone},</if>
+            <if test="userImage != null">#{userImage},</if>
+            <if test="userPassword != null">#{userPassword},</if>
+            <if test="userGroupId != null">#{userGroupId},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+        </trim>
+    </insert>
+
+<!--    public HashMap updateUser(User user)-->
+<!--    user_id  user_name  user_sex  id_card-->
+<!--     user_address  user_phone   user_image  user_password  user_group_id  department_id-->
+    <update id="updateUser" parameterType="com.xjx.springboottest.po.User">
+        update user
+        <set>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userSex != null">user_sex = #{userSex},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="userAddress != null">user_address = #{userAddress},</if>
+            <if test="userPhone != null">user_phone = #{userPhone},</if>
+            <if test="userImage != null">user_image = #{userImage},</if>
+            <if test="userPassword != null">user_password = #{userPassword},</if>
+            <if test="userGroupId != null">user_group_id = #{userGroupId},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+<!--    Integer deleteById(Integer id);-->
+    <delete id="deleteById" >
+        delete from user where user_id = #{id}
+    </delete>
+</mapper>

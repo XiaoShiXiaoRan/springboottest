@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Dynamic Table</title>
+
+</head>
+<style>
+    th{
+        width: 100px;
+        min-height:60px;
+        border: 1px solid #eff0f4;
+        background-color: #dcdfe6;
+    }
+    td{
+        width: 100px;
+        min-height:60px;
+        border: 1px solid #eff0f4;
+        background-color: #f3f6f9;
+    }
+    img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<body class="">
+
+<div style="width: 1200px; margin: 50px auto">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>部门</th>
+            <th>用户组</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>身份证号</th>
+            <th>地址</th>
+            <th>手机号</th>
+            <th>头像</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}" style="text-align:center;">
+            <td th:text="${user.userId}">1</td>
+            <td th:text="${user.departmentName}">1</td>
+            <td th:text="${user.userGroupName}">1</td>
+            <td th:text="${user.userName}">1</td>
+            <td th:text="${user.userSex > 0 ? '女' : '男'}">1</td>
+
+            <td th:text="${user.idCard}">1</td>
+            <td th:text="${user.userAddress}">1</td>
+            <td th:text="${user.userPhone}">1</td>
+            <td><img th:src="${user.userImage}"></td>
+            <td><a th:href="@{/selectById(userId=${user.userId})}">修改 </a> <a th:href="@{/deleteById(id=${user.userId})}"> 删除</a> </td>
+<!--            ,userImage=${user.userImage}-->
+        </tr>
+
+        </tbody>
+    </table>
+    <a th:href="@{/add}">添加用户</a>
+</div>
+
+<div style="height: 300px; width: 230px;position: absolute;top: 0;left: 0">
+    <h4>静态资源图片中文路径示例</h4>
+    <p>字符串路径 文件路径:/image/sa123.jpg</p>
+    <img src="/image/sa123.jpg">
+    <p>中文路径 静态资源访问正常 文件路径:/image/中文.jpg</p>
+    <img src="/image/中文.jpg"> <br>
+    <p>中文路径 静态资源访问正常 文件路径:/image/中文123.jpg</p>
+    <img src="/image/中文123.jpg"> <br>
+    <p>中文路径 静态资源访问正常 文件路径:/image/中文sa.jpg</p>
+    <img src="/image/中文sa.jpg"> <br>
+    <p>静态资源访问正常  文件路径:/image/中文sa123.jpg</p></p>
+    <img src="/image/中文sa123.jpg">
+</div>
+
+<div style="height: 300px; width: 230px;position: absolute;top: 0;right: 150px">
+    <h4>静态资源图片字符串路径示例</h4>
+    <p>字母 静态资源访问正常 文件路径:/image/sa.jpg</p>
+    <img src="/image/sa.jpg">
+    <p>数字 静态资源访问正常 文件路径:/image/123.jpg</p>
+    <img src="/image/123.jpg"> <br>
+</div>
+
+<div style="height: 300px; width: 230px;position: absolute;bottom: 100px;right: 150px">
+    <h4>upload图片字符串路径示例</h4>
+    <p>非中文  文件路径:/upload/sa1654739374833.jpg</p>
+    <img src="/upload/sa1654739374833.jpg">
+    <p>中文 文件路径:/upload/中文.jpg</p>
+    <img src="/upload/中文.jpg"> <br>
+</div>
+
+</body>
+</html>

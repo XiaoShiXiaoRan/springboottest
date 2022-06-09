@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户</title>
+</head>
+<body>
+<form role="form" target="form" th:action="@{/updateUser}"  th:object="${user}" method="post" enctype="multipart/form-data">
+    <input type="text" name="userId" id="userId" th:value="${user.userId}"  style="display: none">
+    <div>
+        <label>
+            部门
+            <select name="departmentName">
+                <option  th:each="dep : ${department}" th:value="${dep.departmentId}" th:text="${dep.departmentName}" th:selected="${user.departmentId == dep.departmentId}">医院</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>
+            用户组
+            <select name="userGroupName">
+                <option th:each="usergroup : ${userGroup}" th:value="${usergroup.userGroupId}" th:text="${usergroup.userGroupName}" th:selected="${user.userGroupId == usergroup.userGroupId}">admin</option>
+            </select>
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="userName">用户名</label>
+        <input type="text" name="userName" class="form-control" id="userName" placeholder="用户名" th:value="${user.userName}">
+    </div>
+    <div>
+        <label>男女</label>
+        <div>
+            <input type="radio" name="userSex" th:selected="${user.userSex == 0}" value="0" title="男">
+            <input type="radio" name="userSex" th:selected="${user.userSex == 1}" value="1" title="女" checked>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="idCard">身份证号</label>
+        <input type="text" name="idCard"  class="form-control" id="idCard" placeholder="身份证号" th:value="${user.idCard}">
+    </div>
+    <div class="form-group">
+        <label for="userAddress">地址</label>
+        <input type="text" name="userAddress"  class="form-control" id="userAddress" placeholder="地址" th:value="${user.userAddress}">
+    </div>
+    <div class="form-group">
+        <label for="userPhone">手机号码</label>
+        <input type="text" name="userPhone" class="form-control" id="userPhone" placeholder="手机号码" th:value="${user.userPhone}">
+    </div>
+    <div class="form-group">
+        <label for="userPassword">密码</label>
+        <input type="password" name="userPassword" class="form-control" id="userPassword" placeholder="密码" th:value="${user.userPassword}">
+    </div>
+    <div class="form-group">
+        原头像：<img style="width: 100px;height: 100px;" th:src="${user.userImage}" alt="">
+        <label for="userImage">新头像</label><input type="file" name="userImage" id="userImage">
+    </div>
+    <button type="submit" class="btn btn-primary">提交</button>
+</form>
+</body>
+</html>
