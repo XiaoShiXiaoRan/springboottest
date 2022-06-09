@@ -85,34 +85,6 @@ public class UserController {
 
         System.out.println(user);
 
-//==============================输出目录
-//        //获取jar包所在目录
-//        ApplicationHome h = new ApplicationHome(getClass());
-//        File jarF = h.getSource();
-//
-//        //在jar包所在目录下生成一个upload文件夹用来存储上传的图片
-//        String dirPath = jarF.getParentFile().toString()+"\\static\\image";
-//        System.out.println(dirPath);
-//
-//
-//        File filePath=new File(dirPath);
-//        //当文件目录不存在时创建文件目录
-//        if(!filePath.exists()){
-//            filePath.mkdirs();
-//        }
-//===============================静态目录
-//        File directory = new File("src/main/resources/static/image");
-//        String reportPath = directory.getCanonicalPath();
-//
-//        System.out.println(reportPath);
-//        File filePaths=new File(reportPath);
-//        //当文件目录不存在时创建文件目录
-//        if(!filePaths.exists()){
-//            filePaths.mkdirs();
-//        }
-//=======================项目根目录创建文件夹存放图片
-//        String fileName=userImage.getOriginalFilename(); //获取文件名以及后缀名
-        //fileName= UUID.randomUUID()+"_"+fileName;//重新生成文件名（根据具体情况生成对应文件名）
 
         //获取jar包所在目录
         ApplicationHome h = new ApplicationHome(getClass());
@@ -126,15 +98,9 @@ public class UserController {
             filePath.mkdirs();
         }
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");//对时间戳进行格式化 文件名不能用”:“
-        //空media创建
+
         if (!userImage.isEmpty()) {
             String originalFilename = userImage.getOriginalFilename();
-
-            //==================================
-            // 保存为原名
-//            		String fileName = new File(item.getName()).getName();
-//	                String filePath = uploadPath + File.separator + fileName;
 
             //获取最后一个.的位置
             int lastIndexOf = originalFilename.lastIndexOf(".");
@@ -144,7 +110,7 @@ public class UserController {
 //                	System.out.println(suffix);
             String imgname = originalFilename.substring(0,lastIndexOf);
 
-            String filePathUp = imgname + new Date().getTime() + suffix;
+            String filePathUp = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + suffix;
             //==================================
 
 
@@ -235,7 +201,7 @@ public class UserController {
 
             String imgname = originalFilename.substring(0,lastIndexOf);
             //抛IO异常
-            String filePathUp = imgname + new Date().getTime() + suffix;
+            String filePathUp = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + suffix;
 
             userImage.transferTo(new File(dirPath +"\\"+ filePathUp));
             user.setUserImage("/upload/" + filePathUp);
