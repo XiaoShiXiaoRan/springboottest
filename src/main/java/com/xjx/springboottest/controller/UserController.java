@@ -22,7 +22,7 @@ import java.util.*;
 @Controller
 public class UserController {
 
-    private static char H = '\n';
+    private static char H = '\r';
 
     @Autowired
     private IUserService userService;
@@ -90,7 +90,13 @@ public class UserController {
         ApplicationHome h = new ApplicationHome(getClass());
         File jarF = h.getSource();
         //在jar包所在目录下生成一个upload文件夹用来存储上传的图片
-        String dirPath = jarF.getParentFile().toString()+"\\upload";
+        String dirPath = System.getProperty("user.dir") + "/upload/";
+        //按照月份进行分类：
+        Calendar instance = Calendar.getInstance();
+        String month = (instance.get(Calendar.MONTH) + 1) + "";
+
+        dirPath = dirPath + month;
+
         System.out.println(dirPath);
 
         File filePath=new File(dirPath);
@@ -115,7 +121,7 @@ public class UserController {
 
 
             userImage.transferTo(new File(dirPath +"\\"+ filePathUp));
-            user.setUserImage("/upload/" + filePathUp);
+            user.setUserImage("/upload/"+ month + "/" + filePathUp);
             map.put("图片上传状态:", "图片上传成功:"+filePathUp + H);
         } else {
             map.put("图片上传状态:", "图片上传失败" + H);
@@ -184,10 +190,16 @@ public class UserController {
         //获取jar包所在目录
         ApplicationHome h = new ApplicationHome(getClass());
         File jarF = h.getSource();
-
         //在jar包所在目录下生成一个upload文件夹用来存储上传的图片
-        String dirPath = jarF.getParentFile().toString()+"\\upload";
+        String dirPath = System.getProperty("user.dir") + "/upload/";
+        //按照月份进行分类：
+        Calendar instance = Calendar.getInstance();
+        String month = (instance.get(Calendar.MONTH) + 1) + "";
+
+        dirPath = dirPath + month;
+
         File filePath=new File(dirPath);
+
         if(!filePath.exists()) {
             filePath.mkdirs();
         }
@@ -204,13 +216,16 @@ public class UserController {
             String filePathUp = "pg-" + UUID.randomUUID().toString().replaceAll("-", "") + suffix;
 
             userImage.transferTo(new File(dirPath +"\\"+ filePathUp));
-            user.setUserImage("/upload/" + filePathUp);
+
+            user.setUserImage("/upload/" + month + "/" + filePathUp);
+
             map.put("图片修改状态:","图片修改成功" + H);
 
             //删除原有图片
             User userimg = this.userService.selectById(userId);
             //获取文件的后缀名 .jpg
-            String userImageNeme = userimg.getUserImage().substring(8);
+            String userImageNeme = userimg.getUserImage().substring(10);
+
             if (!userImage.isEmpty()) {
 
                 //到上面截取的路径+路径名下去看，是否有这个图片
@@ -220,10 +235,11 @@ public class UserController {
                     boolean isDelete = targetFile.delete();
                     if (isDelete) {
                         map.put("原图片状态:", "原图片删除成功" + H);
-                    } else {
-                        map.put("原图片状态:", "原图片删除失败" + H);
                     }
                 }
+            }
+            else {
+                map.put("原图片状态:", "原图片不存在" + H);
             }
 
         }
@@ -255,10 +271,11 @@ public class UserController {
             ApplicationHome h = new ApplicationHome(getClass());
             File jarF = h.getSource();
             //在jar包所在目录下生成一个upload文件夹用来存储上传的图片
-            String dirPath = jarF.getParentFile().toString()+"\\upload";
+            String dirPath = System.getProperty("user.dir") + "/upload/";
 
             //到上面截取的路径+路径名下去看，是否有这个图片
             File targetFile = new File(dirPath,userImage);
+
             //如果存在，就删除
             if(targetFile.exists()) {
                 boolean isDelete = targetFile.delete();
