@@ -17,12 +17,12 @@ public class UnicodeUtils {
         //接收数据
         String str = scanner.nextLine();
 
-        //输出数据
-//        System.out.println("输出的内容为: "+str);
+//      String str = "\u4e0d\u7ba1\u4ed6\u597d\u597d\u6572\u4ee3\u7801\u3002";
 
+        //输出数据
+        System.out.println("输出的内容为: "+str);
 
         //中文转Unicode编码
-
         String unicodeResult = cnToUnicode(str);
         System.out.println("中文转Unicode编码后结果：" + unicodeResult);
 
@@ -30,7 +30,6 @@ public class UnicodeUtils {
         //第一种格式
         String cnResult = unicodeToCN(unicodeResult);
         System.out.println("Unicode编码转中文后结果：" + cnResult);
-
 
         //关闭
         scanner.close();
