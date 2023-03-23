@@ -17,7 +17,6 @@ public class UnicodeUtils {
         //接收数据
         String str = scanner.nextLine();
 
-//      String str = "\u4e0d\u7ba1\u4ed6\u597d\u597d\u6572\u4ee3\u7801\u3002";
 
         //输出数据
         System.out.println("输出的内容为: "+str);

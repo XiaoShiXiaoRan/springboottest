@@ -3,10 +3,12 @@ package com.xjx.springboottest.dao;
 import com.xjx.springboottest.po.User;
 import com.xjx.springboottest.po.UserVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface UserDao{
 
     //查询所有用户信息
