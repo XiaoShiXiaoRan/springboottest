@@ -13,9 +13,9 @@ public class duquwenjian {
     @Test
     public void test() throws IOException {
 
-        this.getWenJianName();
+//        this.getWenJianName();
 
-//        this.deleteFiles();
+        this.deleteFiles();
 
     }
 
@@ -46,10 +46,10 @@ public class duquwenjian {
 
     public void deleteFiles() throws IOException {
 
-        String filePath = "D:/Sustainability/yingshiyun";
+        String filePath = "D:/Sustainability/yingshiyun/";
 
         File folder = new File(filePath);
 
-        FileUtils.forceDelete(folder);
+        FileUtils.cleanDirectory(folder);
     }
 }
