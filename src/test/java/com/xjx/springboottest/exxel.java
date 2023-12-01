@@ -21,14 +21,14 @@ public class exxel {
         /*
          * 在盘下创建一个文件夹
          */
-        String directory = "E:\\upload";
+        String directory = "C:\\Users\\xjx\\Pictures\\素材";
         File file = new File(directory);// 创建文件夹对象
         if (!file.exists()) {// 如果不存在就创建
             file.mkdirs();
         }
 
         Workbook wb = new HSSFWorkbook();// 定义工作薄
-        FileOutputStream fileout = new FileOutputStream("E:upload\\poi_02.xls");// 输出流
+        FileOutputStream fileout = new FileOutputStream("C:\\Users\\xjx\\Pictures\\素材\\poi_02.xls");// 输出流
         Sheet sheet = wb.createSheet("Sheet页1");// 定义sheet页面
 
         Row row = sheet.createRow(0);// 创建第一行
